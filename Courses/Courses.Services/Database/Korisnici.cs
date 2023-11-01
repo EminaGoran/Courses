@@ -21,11 +21,11 @@ public partial class Korisnici
 
     public string LozinkaSalt { get; set; } = null!;
 
-    public DateTime DatumRegistracije { get; set; }
+    public DateTime? DatumRegistracije { get; set; }
 
     public DateTime? DatumPosljednjePrijave { get; set; }
 
-    public int GradId { get; set; }
+    public int? GradId { get; set; }
 
     public int? Uloga { get; set; }
 
