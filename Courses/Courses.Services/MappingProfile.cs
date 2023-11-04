@@ -27,6 +27,29 @@ namespace Courses.Services
             CreateMap<Model.Request.KurseviUpdateRequest, Database.Kursevi>();
             CreateMap<Database.KursKorisnici, Model.KursKorisnici>();
 
+            CreateMap<Database.Obavijesti, Model.Obavijesti>();
+            CreateMap<Model.Request.ObavijestiInsertRequest,Database.Obavijesti>();
+            CreateMap<Model.Request.ObavijestiUpdateRequest,Database.Obavijesti>();
+
+            CreateMap<Database.TipoviObavijesti, Model.TipoviObavijesti>();
+            CreateMap<Model.Request.TipoviObavijestiInsertRequest, Database.TipoviObavijesti>();
+
+            CreateMap<Database.TipMaterijala, Model.TipMaterijala>();
+            CreateMap<Model.Request.TipMaterijalaInsertRequest, Database.TipMaterijala>();
+
+            CreateMap<Database.Materijali, Model.Materijali>();
+            CreateMap<Model.Request.MaterijaliInsertRequest, Database.Materijali>();
+            CreateMap<Model.Request.MaterijaliUpdateRequest, Database.Materijali>();
+
+            CreateMap<Database.Uplate, Model.Uplate>();
+            CreateMap<Model.Request.UplateInsertRequest, Database.Uplate>();
+            CreateMap<Model.Request.UplateUpdateRequest, Database.Uplate>();
+
+            CreateMap<Database.Predavanja, Model.Predavanja>();
+            CreateMap<Model.Request.PredavanjaInsertRequest, Database.Predavanja>();
+            CreateMap<Model.Request.PredavanjaUpdateRequest, Database.Predavanja>();
+
+
         }
     }
 }
