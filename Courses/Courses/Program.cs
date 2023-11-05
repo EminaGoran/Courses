@@ -1,3 +1,4 @@
+using Courses.Filters;
 using Courses.Model.Request;
 using Courses.Model.SearchObjects;
 using Courses.Services;
@@ -24,7 +25,7 @@ builder.Services.AddTransient<ICRUDService<Courses.Model.TipoviObavijesti, Tipov
 builder.Services.AddTransient<ICRUDService<Courses.Model.TipMaterijala, TipMaterijalaSearchObject, TipMaterijalaInsertRequest, TipMaterijalaInsertRequest>, TipoviMaterijalaService>();
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers( x=> { x.Filters.Add<ErrorFilter>(); });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

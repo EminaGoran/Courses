@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Courses.Model;
 using Courses.Model.SearchObjects;
 using Courses.Services.Database;
 using System;
@@ -48,7 +49,7 @@ namespace Courses.Services
             var set = _context.Set<Tdb>();
             var entity = await set.FindAsync(id);
             if (entity == null)
-                throw new ArgumentNullException();
+                throw new UserExceptions("Ne postoji objekat sa tim ID");
             var x = entity;
             _context.Set<Tdb>().Remove(entity);
             _context.SaveChanges();

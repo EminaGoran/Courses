@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,10 @@ namespace Courses.Model.Request
         public string KorisnickoIme { get; set; } = null!;
 
        
+        [Compare("Lozinkapotvrda",ErrorMessage ="Lozinske se ne podudaraju")]
         public string Lozinka {  get; set; } = null!;
+
+        [Compare("Lozinka", ErrorMessage = "Lozinske se ne podudaraju")]
         public string LozinkaPotvrda { get; set; } = null!;
         public DateTime DatumRegistracije { get; set; }
 
