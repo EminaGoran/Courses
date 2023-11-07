@@ -3,6 +3,7 @@ using Courses.Controllers;
 using Courses.Model;
 using Courses.Model.SearchObjects;
 using Courses.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 using Microsoft.OpenApi.Writers;
@@ -26,6 +27,7 @@ namespace Courses.Controllers
 
     
         [HttpPost]
+        [Authorize (Roles ="Administrator")]
         public virtual async Task<T> Insert ([FromBody]Tinsert insert)
         {
             return await _service.Insert(insert);

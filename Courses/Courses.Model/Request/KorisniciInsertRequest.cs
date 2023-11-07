@@ -21,7 +21,7 @@ namespace Courses.Model.Request
         public string KorisnickoIme { get; set; } = null!;
 
        
-        [Compare("Lozinkapotvrda",ErrorMessage ="Lozinske se ne podudaraju")]
+        [Compare("LozinkaPotvrda",ErrorMessage ="Lozinske se ne podudaraju")]
         public string Lozinka {  get; set; } = null!;
 
         [Compare("Lozinka", ErrorMessage = "Lozinske se ne podudaraju")]

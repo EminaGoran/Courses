@@ -29,9 +29,6 @@ namespace Courses.Services
 
         public override async Task BeforeInsert(Korisnici entity, KorisniciInsertRequest request)
         {
-            //entity.DatumRegistracije = DateTime.Now;
-            //entity.DatumPosljednjePrijave = DateTime.Now;
-
             entity.LozinkaSalt = GenerateSalt();
             entity.LozinkaHash = GenerateHash(entity.LozinkaSalt, request.Lozinka);
          
@@ -83,7 +80,29 @@ namespace Courses.Services
             }
             return base.AddInclude(query, tsearch);
             }
+
+        public async Task<Model.Korisnici> Login(string username, string password)
+        {
+            var entity = await _context.Korisnicis.Include("UlogaNavigation.Korisnicis").FirstOrDefaultAsync(x => x.KorisnickoIme == username);
+            
+           
+
+            if (entity==null)
+            {
+                return null;
+            }
+             var hash = GenerateHash(entity.LozinkaSalt, password);
+            if(hash != entity.LozinkaHash)
+            {
+                return null;
+            }
+            else
+            {
+                return _mapper.Map<Model.Korisnici>(entity);
+            }
+
         }
+    }
     }
 
 

@@ -3,7 +3,7 @@ using Courses.Services;
 using Courses.Services.Database;
 using Courses.Model.Request;
 using Courses.Model.SearchObjects;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace Courses.Controllers
 {
@@ -17,9 +17,13 @@ namespace Courses.Controllers
        
         }
 
-      
+        [Authorize (Roles ="Administrator")]
+        public override Task<Model.Korisnici> Insert([FromBody] KorisniciInsertRequest insert)
+        {
+            return base.Insert(insert);
+        }
 
-  
+
     } 
 
         

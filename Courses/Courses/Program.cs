@@ -1,10 +1,14 @@
+using Courses;
 using Courses.Filters;
 using Courses.Model.Request;
 using Courses.Model.SearchObjects;
 using Courses.Services;
 using Courses.Services.Database;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,9 +30,30 @@ builder.Services.AddTransient<ICRUDService<Courses.Model.TipMaterijala, TipMater
 
 
 builder.Services.AddControllers( x=> { x.Filters.Add<ErrorFilter>(); });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+c.AddSecurityDefinition("basicAuth", new Microsoft.OpenApi.Models.OpenApiSecurityScheme()
+{
+    Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+    Scheme = "basic"
+});
+
+    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement()
+    {
+        {
+
+    new OpenApiSecurityScheme
+    {
+    Reference=new OpenApiReference{Type=ReferenceType.SecurityScheme, Id="basicAuth"}
+    },
+    new string[] {}
+    } });
+
+     }) ;
+
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<CoursesContext>(options => options.UseSqlServer(connectionString)
@@ -37,6 +62,7 @@ builder.Services.AddDbContext<CoursesContext>(options => options.UseSqlServer(co
 
 builder.Services.AddAutoMapper(typeof(IKorisniciService));
 builder.Services.AddAutoMapper(typeof(IKursService));
+builder.Services.AddAuthentication("BasicAuthentication").AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication",null);
 var app = builder.Build();
 
 
@@ -50,8 +76,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 
 app.UseAuthorization();
+
 
 app.MapControllers();
 

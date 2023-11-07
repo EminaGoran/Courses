@@ -11,6 +11,7 @@ using Courses.Model;
 namespace Courses.Controllers
 {
     [Route("[controller]")]
+    [Authorize]
    
     public class BaseController<T,Tsearch> : ControllerBase where T : class where Tsearch : class
     {
